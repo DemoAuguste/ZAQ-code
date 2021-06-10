@@ -10,13 +10,13 @@ import torch.nn as nn
 import torch.optim as optim
 
 import network
-from utils.visualizer import VisdomPlotter
+# from utils.visualizer import VisdomPlotter
 from utils.loss import *
 from dataloader import get_dataloader
 from quantization import quantize_model
 
 
-vp = VisdomPlotter('8097', env='ZAQ-main')
+# vp = VisdomPlotter('8097', env='ZAQ-main')
 
 def train(args, p_model, q_model, generator, optimizer, epoch):
     p_model.eval()
@@ -53,8 +53,8 @@ def train(args, p_model, q_model, generator, optimizer, epoch):
         if i % args.log_interval == 0:
             print('Train Epoch: [{}] [{}/{} ({:.0f}%)]\tG_Loss: {:.6f} Q_loss: {:.6f}'.format(
                 epoch, i, args.epoch_itrs, 100*float(i)/float(args.epoch_itrs), loss_G.item(), loss_Q.item()))
-            vp.add_scalar('Loss_Q', (epoch-1)*args.epoch_itrs+i, loss_Q.item())
-            vp.add_scalar('Loss_G', (epoch-1)*args.epoch_itrs+i, loss_G.item())
+            # vp.add_scalar('Loss_Q', (epoch-1)*args.epoch_itrs+i, loss_Q.item())
+            # vp.add_scalar('Loss_G', (epoch-1)*args.epoch_itrs+i, loss_G.item())
 
 def test(args, model, test_loader, epoch=0):
     model.eval()
@@ -181,7 +181,7 @@ def main():
             print('Saving a best checkpoint ...')
             torch.save(q_model.state_dict(),"checkpoint/q_model/ZAQ-%s-%s-%sbit.pt"%(args.dataset, args.model, args.weight_bit))
             torch.save(generator.state_dict(),"checkpoint/q_model/ZAQ-%s-%s-%sbit-generator.pt"%(args.dataset, args.model, args.weight_bit))
-        vp.add_scalar('Acc', epoch, acc)
+        # vp.add_scalar('Acc', epoch, acc)
     print("Best Acc=%.6f" % best_acc)
 
     import csv

@@ -61,6 +61,7 @@ def test(args, model, test_loader, epoch=0):
 
     test_loss = 0
     correct = 0
+    print(args.device)
     with torch.no_grad():
         for i, (data, target) in enumerate(test_loader):
             data, target = data.to(args.device), target.to(args.device)

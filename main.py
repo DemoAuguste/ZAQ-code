@@ -57,6 +57,7 @@ def train(args, p_model, q_model, generator, optimizer, epoch):
             # vp.add_scalar('Loss_G', (epoch-1)*args.epoch_itrs+i, loss_G.item())
 
 def test(args, model, test_loader, epoch=0):
+    model.to(args.device)
     model.eval()
 
     test_loss = 0

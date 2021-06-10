@@ -8,8 +8,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-import pydot
-from graphviz import Digraph
+# import pydot
+# from graphviz import Digraph
 
 from .utils import _ReplaceFunc, Log, UnitLayer, dict_merge
 
@@ -252,7 +252,7 @@ class TorchTransformer(nn.Module):
 						 ranksep='0.1',
 						 height='0.2')
 		
-		dot = Digraph(node_attr=node_attr, graph_attr=dict(size="{},{}".format(graph_size, graph_size)))	
+		# dot = Digraph(node_attr=node_attr, graph_attr=dict(size="{},{}".format(graph_size, graph_size)))	
 
 		# get dicts and variables
 		model_graph = self.log.getGraph()		
@@ -276,7 +276,7 @@ class TorchTransformer(nn.Module):
 				output_shape = "[{}]".format(tuple(output_shape_graph[key]))
 				layer_type = layer_type + "\nShape: " + output_shape
 
-				dot.node(str(key), layer_type, fillcolor='orange')			
+				# dot.node(str(key), layer_type, fillcolor='orange')			
 			else:
 				# Layer Information
 				layer = model_graph[key]
@@ -304,18 +304,18 @@ class TorchTransformer(nn.Module):
 				output_shape = "[{}]".format(tuple(output_shape_graph[key]))
 				layer_type = layer_type + "Shape: " + output_shape
 
-				dot.node(str(key), layer_type, fillcolor='orange')				
+				# dot.node(str(key), layer_type, fillcolor='orange')				
 				# link bottoms
 				# print("Bottoms: ")
-				for bot_key in bottoms_graph[key]:
+				# for bot_key in bottoms_graph[key]:
 					# print(bot_key)
-					dot.edge(str(bot_key), str(key))				
+					# dot.edge(str(bot_key), str(key))				
 		
 		# return graph
-		if save_name is not None:
-			(graph,) = pydot.graph_from_dot_data(dot.source)
-			graph.write_png(save_name + ".png" )
-		return dot
+		# if save_name is not None:
+		# 	(graph,) = pydot.graph_from_dot_data(dot.source)
+		# 	graph.write_png(save_name + ".png" )
+		return None
 
 	def _build_graph(self, model, input_tensor = None, ignore_type=[]):
 
